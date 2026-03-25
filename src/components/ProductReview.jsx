@@ -81,8 +81,8 @@ const ProductReview = () => {
       >
         {reviews.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-white p-6 rounded-2xl shadow-lg text-center transition-all duration-300 scale-90 
-            opacity-70 swiper-slide-active:scale-100 swiper-slide-active:opacity-100">
+            <div className="bg-white p-6 rounded-2xl shadow-lg text-center transition-all duration-300 
+            scale-90 opacity-70 swiper-slide-active:scale-100 swiper-slide-active:opacity-100">
               
               <p className="text-gray-600 mb-4">{item.review}</p>
 

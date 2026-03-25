@@ -1,3 +1,4 @@
+import CTA from "@/components/CTA";
 import Features from "@/components/Features";
 import Hero from "@/components/Hero";
 import ProductReview from "@/components/ProductReview";
@@ -9,6 +10,7 @@ export default function Home() {
           <Hero></Hero> 
           <Features></Features>
           <ProductReview></ProductReview>
+          <CTA></CTA>
         </div>
   );
 }
