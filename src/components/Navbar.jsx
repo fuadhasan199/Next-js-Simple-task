@@ -42,8 +42,8 @@ const Navbar = () => {
               <Link href="/" className={isActive("/")}>Home</Link>
             </li>
             <li>
-              <Link href="/products" className={isActive("/products")}>
-                All Products
+              <Link href="/advice" className={isActive("/advice")}>
+              Advice
               </Link>
             </li>
             <li>
@@ -75,8 +75,8 @@ const Navbar = () => {
             <Link href="/" className={isActive("/")}>Home</Link>
           </li>
           <li>
-            <Link href="/products" className={isActive("/products")}>
-              All Products
+            <Link href="/advice" className={isActive("/advice")}>
+              Advice
             </Link>
           </li>
           <li>
