@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm container mx-auto">
+    <div className="navbar bg-green-100 rounded-xl shadow-sm container mx-auto">
       
       {/* LEFT */}
       <div className="navbar-start">

@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="container mx-auto shadow-xl bg-base-100  pt-5 m-2 px-6 md:px-16 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer className="container mx-auto shadow-xl bg-green-100  rounded-xl pt-5 m-2 px-6 md:px-16 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 ">
 
        
         <div>
