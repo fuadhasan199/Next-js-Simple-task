@@ -39,21 +39,21 @@ const Navbar = () => {
 
           <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link href="/" className={isActive("/")}>Home</Link>
+              <Link href="/" className={isActive("/")}>হোম</Link>
             </li>
             <li>
-              <Link href="/advice" className={isActive("/advice")}>
+              <Link href="/পরামর্শ" className={isActive("/advice")}>
               Advice
               </Link>
             </li>
             <li>
               <Link href="/categories" className={isActive("/categories")}>
-                Categories
+                এক্সপার্টস
               </Link>
             </li>
             <li>
               <Link href="/about" className={isActive("/about")}>
-                About us
+               আমাদের সম্পর্কে
               </Link>
             </li>
           </ul>
@@ -72,21 +72,21 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">
           <li>
-            <Link href="/" className={isActive("/")}>Home</Link>
+            <Link href="/" className={isActive("/")}>হোম</Link>
           </li>
           <li>
             <Link href="/advice" className={isActive("/advice")}>
-              Advice
+              পরামর্শ
             </Link>
           </li>
           <li>
             <Link href="/categories" className={isActive("/categories")}>
-              Categories
+              এক্সপার্টস
             </Link>
           </li>
           <li>
             <Link href="/about" className={isActive("/about")}>
-              About us
+             আমাদের সম্পর্কে
             </Link>
           </li>
         </ul>
@@ -94,7 +94,7 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="navbar-end">
-        <a className="btn btn-primary btn-sm">Button</a>
+        <a className="btn btn-primary btn-sm">লগ ইন</a>
       </div>
     </div>
   );
