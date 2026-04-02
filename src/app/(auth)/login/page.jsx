@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { FcGoogle } from "react-icons/fc";
@@ -9,7 +10,7 @@ const Login = () => {
       
       <div className="w-full max-w-md bg-white/80 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-gray-200">
         
-        {/* Title */}
+       
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-green-900">
             Welcome Back 🌱
@@ -19,10 +20,10 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Form */}
+       
         <form className="space-y-5">
 
-          {/* Email */}
+         
           <div>
             <label className="text-sm font-medium text-gray-700">
               Email Address
@@ -34,7 +35,7 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
+         
           <div>
             <label className="text-sm font-medium text-gray-700">
               Password
@@ -46,7 +47,7 @@ const Login = () => {
             />
           </div>
 
-          {/* Remember + Forgot */}
+       
           <div className=" text-sm">
           
             <button type="button" className="text-green-700 hover:underline">
@@ -54,7 +55,7 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Button */}
+        
           <button
             type="submit"
             className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-lg font-semibold transition duration-300"
@@ -81,7 +82,7 @@ const Login = () => {
         <p className="text-center text-sm text-gray-500 mt-6">
           Don’t have an account?{" "}
           <span className="text-green-700 font-medium cursor-pointer hover:underline">
-            Sign Up
+              <Link href={"/register"}> Register </Link>
           </span>
         </p>
       </div>

@@ -15,7 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "AgroX",
+  title: {
+    default: "AgroX",
+    template: "%s | AgroX", 
+  },
   description: "Empowering Farmers, Smarter Decisions",
 };
 

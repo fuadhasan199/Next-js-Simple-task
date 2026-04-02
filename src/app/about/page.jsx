@@ -1,9 +1,27 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from 'next/link'; 
 
-export default function AboutPage() {
+
+
+ export const metadata={
+     title:"আমাদের সম্পর্কে | agroX",
+      description: "বাংলাদেশের কৃষকদের জন্য আধুনিক কৃষি পরামর্শ, ফসল চাষ, খামার পরিকল্পনা, পশুপালন ও স্মার্ট ফার্মিং গাইড এক জায়গায়।",
+       keywords: [
+    "কৃষি পরামর্শ",
+    "ফসল চাষ",
+    "খামার পরিকল্পনা",
+    "বাংলাদেশ কৃষি",
+    "smart farming",
+    "Agrox"
+  ]
+ }
+
+export default function AboutPage() { 
+
+
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-green-50">
     
       <section className="relative bg-green-900 py-20 px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto text-center relative z-10">
@@ -56,19 +74,19 @@ export default function AboutPage() {
 
     
       <section className="bg-green-50 py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center mb-16">
+        <div className="max-w-7xl mx-auto text-center mb-16 p-1">
           <h2 className="text-4xl font-black text-gray-900">কেন Agrox বেছে নেবেন?</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto mt-5 ">
           {[
             { icon: "🧪", title: "নির্ভুল তথ্য", desc: "আমরা অভিজ্ঞদের পরামর্শ যাচাই করে সঠিক তথ্য প্রদান করি।" },
             { icon: "📱", title: "সহজ ব্যবহার", desc: "একদম সাধারণ ইন্টারফেস যাতে সবাই সহজে ব্যবহার করতে পারে।" },
             { icon: "💚", title: "কৃষক বান্ধব", desc: "আমাদের প্রতিটি ফিচার কৃষকের সমস্যা সমাধানের জন্য তৈরি।" }
           ].map((card, index) => (
-            <div key={index} className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all border border-green-100 group">
+            <div key={index} className="bg-white  rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all border border-green-100 group">
               <div className="text-5xl mb-6 group-hover:scale-125 transition-transform duration-300 inline-block">{card.icon}</div>
-              <h3 className="text-2xl font-black text-gray-900 mb-4">{card.title}</h3>
-              <p className="text-gray-500 leading-relaxed">{card.desc}</p>
+              <h3 className="text-2xl font-black text-gray-900 mb-4 p-1">{card.title}</h3>
+              <p className="text-gray-500 leading-relaxed p-1">{card.desc}</p>
             </div>
           ))}
         </div>

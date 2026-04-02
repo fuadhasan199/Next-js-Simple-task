@@ -3,6 +3,31 @@ import Link from 'next/link';
 import React from 'react';
 
 
+
+export const metadata = {
+  title: "কৃষি পরামর্শ ও ফসল চাষ গাইড | Agrox",
+  description:
+    "বাংলাদেশের কৃষকদের জন্য আধুনিক কৃষি পরামর্শ, ফসল চাষ পদ্ধতি, খামার পরিকল্পনা ও পশুপালন গাইড। নতুন ও অভিজ্ঞ কৃষকদের জন্য সম্পূর্ণ সমাধান।",
+  keywords: [
+    "কৃষি পরামর্শ",
+    "ফসল চাষ পদ্ধতি",
+    "ধান চাষ",
+    "খামার পরিকল্পনা",
+    "কৃষি টিপস",
+    "বাংলাদেশ কৃষি",
+    "Agrox advice"
+  ],
+  openGraph: {
+    title: "কৃষি পরামর্শ | Agrox",
+    description:
+      "ফসল চাষ, খামার ব্যবস্থাপনা ও আধুনিক কৃষি টিপস এক জায়গায়",
+    type: "website",
+  },
+};
+
+
+
+
 async function GetProduct(search, sort, page) {
   try {
     
@@ -17,9 +42,17 @@ async function GetProduct(search, sort, page) {
     console.error("Fetch Error:", err);
     return { products: [], totalPages: 0, currentPage: 1 };
   }
-}
+} 
 
-const AllProductsPage = async ({ searchParams }) => {
+
+
+
+
+
+const AllProductsPage = async ({ searchParams }) => { 
+
+
+  
   
   const params = await searchParams;
   
@@ -31,10 +64,13 @@ const AllProductsPage = async ({ searchParams }) => {
 
   const products = data?.products || []
   const totalPages = data?.totalPages || 0
-  const currentPage = Number(data?.currentPage) || 1
+  const currentPage = Number(data?.currentPage) || 1 
+
+
+  
 
   return (
-    <div className="min-h-screen bg-green-100 py-10 px-4">
+    <div className="min-h-screen bg-green-50 py-10 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 border-b pb-6">
           <h1 className="text-4xl font-extrabold text-green-800 tracking-tight">Agrox পরামর্শ ভাণ্ডার</h1>

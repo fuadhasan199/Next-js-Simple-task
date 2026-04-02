@@ -13,7 +13,14 @@ const expertData = [
     { id: 10, name: "ডা. ফয়সাল আহমেদ", qualification: "MBBS, BCS (Livestock)", specialist: "পশু পুষ্টি ও খাদ্য বিশেষজ্ঞ", institution: "চট্টগ্রাম ভেটেরিনারি বিশ্ববিদ্যালয়", phone: "01711111111", icon: "🌿" },
     { id: 11, name: "কৃষিবিদ লায়লা আক্তার", qualification: "MS in Plant Pathology", specialist: "উদ্ভিদ রোগ নির্ণয় বিশেষজ্ঞ", institution: "বঙ্গবন্ধু কৃষি বিশ্ববিদ্যালয়", phone: "01522222222", icon: "🍄" },
     { id: 12, name: "মো. মোস্তফা কামাল", qualification: "Diploma in Forestry", specialist: "নার্সারি ও বন ব্যবস্থাপনা বিশেষজ্ঞ", institution: "ফরেস্ট্রি ইনস্টিটিউট", phone: "01833333333", icon: "🌳" }
-];
+] 
+
+
+export const metadata={
+     title:"বিশেষজ্ঞদের পরামর্শ | Agrox",
+     description:"অভিজ্ঞ কৃষিবিদ এবং পশুচিকিৎসকদের কাছ থেকে সরাসরি পরামর্শ নিন",
+      keywords: ["কৃষি পরামর্শ", "ফসল চাষ", "খামার পরিকল্পনা", "বাংলাদেশ কৃষি", "Agrox"]
+}
 
 const ExpertsPage = () => {
     return (

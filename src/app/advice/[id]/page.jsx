@@ -6,6 +6,25 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { BiCategoryAlt } from "react-icons/bi";
 import { MdOutlineSpeed } from "react-icons/md";
 
+
+
+async function generateMetadata({params}) {
+     const {id}=await params 
+     const product=await GetSingleProduct(id)  
+     if (!product) {
+        return {
+            title: "পরামর্শ পাওয়া যায়নি | Agrox",
+            description: "দুঃখিত, এই তথ্যটি খুঁজে পাওয়া যায়নি।"
+        };
+    }
+      return {
+        title: `${product.title} | Agrox কৃষি পরামর্শ`,
+        description: product.shortDescription
+      }
+}
+
+
+
 async function GetSingleProduct(id) {
     try {
         const baseUrl = "http://localhost:3000";
@@ -20,7 +39,7 @@ async function GetSingleProduct(id) {
     }
 }
 
-const DetailsPage = async ({ params }) => {
+export const DetailsPage = async ({ params }) => {
     const { id } = await params;
     const product = await GetSingleProduct(id);
 
@@ -35,17 +54,17 @@ const DetailsPage = async ({ params }) => {
                     </Link>
                 </div>
             </div>
-        );
+        )
     }
 
     return (
-        <div className='min-h-screen bg-base-100 gap-1 font-sans'>
+        <div className='min-h-screen bg-green-50 gap-1 font-sans'>
         
     
 
           
-            <div className="max-w-4xl mx-auto px-4 mt-8">
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden relative">
+            <div className="max-w-4xl mx-auto px-4 mt-8 ">
+                <div className=" rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden relative">
                     
                   
                     <div className="p-8 md:p-12"> 
@@ -55,8 +74,8 @@ const DetailsPage = async ({ params }) => {
                     src={product.image} 
                     alt='product image' 
                     width={700} 
-                    height={300} 
-                    className='rounded-xl shadow-lg object-cover'
+                    height={200} 
+                    className='rounded-xl shadow-lg object-cover '
                 />
             </div>
 
