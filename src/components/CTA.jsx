@@ -38,7 +38,7 @@ const CTA = () => {
           </Link>
 
           {/* SECONDARY CTA */}
-          <Link href="/products">
+          <Link href="/advice">
             <button className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-green-900 transition">
               Explore Products
             </button>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Hero = () => {
@@ -32,11 +33,11 @@ const Hero = () => {
     
       <div className="flex justify-center gap-4 flex-wrap">
         <button className="btn bg-green-500 hover:bg-green-600 border-none text-white px-6">
-          Get Started
+          <Link href={"/login"}> Get Started </Link> 
         </button>
 
         <button className="btn btn-outline border-white text-white hover:bg-white hover:text-green-800 px-6">
-          Explore More
+           <Link href={"/advice"}> Explore More </Link> 
         </button>
       </div>
 

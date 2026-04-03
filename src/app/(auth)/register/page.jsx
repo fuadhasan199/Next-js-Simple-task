@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { FcGoogle } from "react-icons/fc";
@@ -81,7 +82,7 @@ const register = () => {
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account-{" "}
           <span className="text-green-700 font-medium cursor-pointer hover:underline">
-            Logn In
+            <Link href={"/login"}>Log In </Link> 
           </span>
         </p>
       </div>

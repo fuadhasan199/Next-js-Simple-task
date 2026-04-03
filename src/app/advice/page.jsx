@@ -31,7 +31,7 @@ export const metadata = {
 async function GetProduct(search, sort, page) {
   try {
     
-    const baseUrl = "http://localhost:3000";
+    const baseUrl = "https://agrox-coral.vercel.app";
     const res = await fetch(
       `${baseUrl}/api/products?search=${search}&sort=${sort}&page=${page}`,
       { cache: 'no-store' }

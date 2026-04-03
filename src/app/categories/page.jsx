@@ -32,11 +32,11 @@ const ExpertsPage = () => {
                 <p className="text-gray-600 max-w-2xl mx-auto font-bold italic">
                     Agrox-এর অভিজ্ঞ প্যানেল থেকে আপনার সমস্যার সমাধান খুঁজুন। 
 
-                  <div className="text-gray-700 font-semibold"> 
+                  <span className="text-gray-700 font-semibold"> 
                     কল করুন সকাল ৮টা থেকে ৯.৩০ আর বিকেল ৫ টা থেকে রাত ৯.৩০ পর্যন্ত
                     
                     
-                    </div>  
+                    </span>  
                 </p>
             </div>
 

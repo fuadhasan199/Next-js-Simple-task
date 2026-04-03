@@ -42,8 +42,8 @@ const Navbar = () => {
               <Link href="/" className={isActive("/")}>হোম</Link>
             </li>
             <li>
-              <Link href="/পরামর্শ" className={isActive("/advice")}>
-              Advice
+              <Link href="/advice" className={isActive("/advice")}>
+              পরামর্শ 
               </Link>
             </li>
             <li>
@@ -60,7 +60,7 @@ const Navbar = () => {
         </div>
 
         <Image
-          src="/Agrox.jpg"
+          src="/logo.jpg"
           width={75}
           height={62}
           alt="logo"
@@ -94,7 +94,7 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="navbar-end">
-        <a className="btn btn-primary btn-sm">লগ ইন</a>
+        <a className="btn btn-primary btn-sm"> <Link href={"/login"}>লগ ইন </Link>  </a>
       </div>
     </div>
   );

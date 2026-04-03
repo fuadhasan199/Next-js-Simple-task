@@ -1,11 +1,12 @@
 import NextAuth from "next-auth"
+import Credentials from "next-auth/providers/credentials"
 
 
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
  
-     CredentialsProvider({
+     Credentials({
     // Sign in form
     name: 'Credentials',
  
