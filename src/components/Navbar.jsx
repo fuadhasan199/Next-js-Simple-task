@@ -94,7 +94,7 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="navbar-end">
-        <a className="btn btn-primary btn-sm"> <Link href={"/login"}>লগ ইন </Link>  </a>
+        <span className="btn btn-primary btn-sm"> <Link href={"/login"}>লগ ইন </Link>  </span>
       </div>
     </div>
   );

@@ -1,10 +1,42 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 import React from "react";
 
 import { FcGoogle } from "react-icons/fc";
-const Login = () => {
+const Login = () => { 
+  const router=useRouter()
+  const handleLogin=async(e)=>{
+      e.preventDefault() 
+      const form=e.target
+  const email = form.email.value;
+  const password = form.password.value; 
+
+     try{
+       const res=await signIn("credentials",{
+          email,
+          password,
+          redirect:false
+       }) 
+        if(res.error){
+           alert(res.error) 
+           return
+        } 
+
+       if(res.ok){
+         router.push("/")
+       }
+         
+        
+     } 
+     catch(error){
+       console.log(error.message)
+     }
+  }
   return (
     <div className="min-h-screen flex items-center justify-center `bg-gradient-to-br from-green-100` via-white to-green-200 px-4">
       
@@ -21,7 +53,7 @@ const Login = () => {
         </div>
 
        
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleLogin}>
 
          
           <div>
@@ -29,7 +61,7 @@ const Login = () => {
               Email Address
             </label>
             <input
-              type="email"
+              type="email" name="email"
               placeholder="Enter your email"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             />
@@ -41,7 +73,7 @@ const Login = () => {
               Password
             </label>
             <input
-              type="password"
+              type="password" name="password"
               placeholder="Enter your password"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             />

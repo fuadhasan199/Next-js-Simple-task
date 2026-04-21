@@ -31,11 +31,11 @@ export const metadata = {
 async function GetProduct(search, sort, page) {
   try {
     
-    const baseUrl = "https://agrox-coral.vercel.app";
+    const baseUrl =process.env.NEXT_PUBLIC_URL;
     const res = await fetch(
       `${baseUrl}/api/products?search=${search}&sort=${sort}&page=${page}`,
       { cache: 'no-store' }
-    );
+    )
     if (!res.ok) throw new Error("Failed to fetch");
     return res.json();
   } catch (err) {

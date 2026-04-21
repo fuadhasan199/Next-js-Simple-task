@@ -27,7 +27,7 @@ async function generateMetadata({params}) {
 
 async function GetSingleProduct(id) {
     try {
-        const baseUrl = "https://agrox-coral.vercel.app";
+        const baseUrl =process.env.NEXT_PUBLIC_URL;
         const res = await fetch(`${baseUrl}/api/products/${id}`, {
             cache: 'no-store'
         });

@@ -1,25 +1,24 @@
-const { default: clientPromise } = require("@/lib/mongodb")
-const { ObjectId } = require("mongodb")
-const { NextResponse } = require("next/server")
 
- 
- export async function GET(request, {params}) {
-    
-  try{
-     const {id}= await params 
-     const client=await clientPromise 
-     const db=client.db("Agrox")
+import clientPromise from "@/lib/mongodb"
+import { ObjectId } from "mongodb"
+import { NextResponse } from "next/server"
 
-     const product=await db.collection("products").findOne({_id:new ObjectId(id)}) 
+export async function GET(request, segmentData) {
+  try {
+    const { id } = await segmentData.params
 
-        if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
-        return NextResponse.json(product);
-  } 
-  catch(error){
-     return NextResponse.json({error:"Something went wrong"},{status:500})
+    const client = await clientPromise
+    const db = client.db("Agrox")
+
+    const product = await db.collection("products").findOne({ 
+      _id: new ObjectId(id) 
+    })
+
+    if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 })
+    return NextResponse.json(product)
+
+  } catch (error) {
+    console.error("Error:", error.message)
+    return NextResponse.json({ error: error.message }, { status: 500 })
   }
-
-
-
-
- }
+}

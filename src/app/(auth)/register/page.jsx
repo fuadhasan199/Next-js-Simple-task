@@ -1,10 +1,34 @@
 "use client";
 
+import { postUser } from "@/action/server/auth";
 import Link from "next/link";
 import React from "react";
 
 import { FcGoogle } from "react-icons/fc";
-const register = () => {
+const register = () => { 
+
+ const handleRegister=async(e)=>{ 
+  e.preventDefault(); 
+  const Form=e.target
+  const FormData={
+     email:Form.email.value,
+     password:Form.password.value,
+     createdAt:new Date().toISOString(),
+
+
+
+  } 
+   
+  postUser(FormData) 
+  e.target.reset() 
+  alert("user created ")
+  
+
+
+ }
+
+
+
   return (
     <div className="min-h-screen flex items-center justify-center `bg-gradient-to-br from-green-100` via-white to-green-200 px-4">
       
@@ -21,7 +45,7 @@ const register = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleRegister}>
 
           {/* Email */}
           <div>
@@ -29,7 +53,7 @@ const register = () => {
               Email Address
             </label>
             <input
-              type="email"
+              type="email" name="email"
               placeholder="Enter your email"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             />
@@ -41,7 +65,7 @@ const register = () => {
               Password
             </label>
             <input
-              type="password"
+              type="password" name="password"
               placeholder="Enter your password"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
             />

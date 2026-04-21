@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NextProvider from "@/provider/nextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +17,19 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: {
-    default: "AgroX",
-    template: "%s | AgroX", 
+    default: "",
+    template: "%s ", 
   },
   description: "Empowering Farmers, Smarter Decisions",
 };
 
 export default function RootLayout({ children }) {
-  return (
+  return ( 
+    
+    <NextProvider> 
+       
+   
+
     <html lang="en" data-theme="light">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -39,6 +45,7 @@ export default function RootLayout({ children }) {
        
        
       </body>
-    </html>
+    </html> 
+     </NextProvider>
   );
 }
