@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +8,7 @@ import React from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const {data:session,status}=useSession()
 
   const isActive = (path) => {
     return pathname === path
@@ -94,7 +96,15 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="navbar-end">
-        <span className="btn btn-primary btn-sm"> <Link href={"/login"}>লগ ইন </Link>  </span>
+        {status==="authenticated"?(
+           <div className="flex items-center gap-3">
+             
+                <button className="btn btn-primary" onClick={()=>signOut()}>log out</button>
+             
+           </div> ):(
+              <Link className="btn btn-primary" href={"/login"}> Log in</Link>
+           )
+        }
       </div>
     </div>
   );
