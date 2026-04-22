@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import clientPromise from "@/lib/mongodb"; 
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
@@ -35,13 +36,31 @@ export const authOptions = {
 
         return { id: user._id.toString(), email: user.email };
       }
-    })
+    }) ,
+      GoogleProvider({
+    clientId:process.env.Goggle_Client_ID,
+    clientSecret:process.env.Goggle_Client_Secret
+  }) 
   ],
   session: {
     strategy: "jwt",
   }, 
+
+ 
+
+
   callbacks: {
-  async signIn({ user, account, profile, email, credentials }) {
+  async signIn({ user, account, profile, email, credentials }) { 
+    if(account?.providers==="google"){
+       const client=await clientPromise 
+       const db=client.db("Agrox") 
+        const userCollection=db.collection("users")
+       const isExistingUser=await userCollection.findOne({email:user.email})
+        if(!isExistingUser){
+          await userCollection.insertOne({...user,email:user.email})
+        } 
+    }
+
     return true
   },
   async redirect({ url, baseUrl }) {

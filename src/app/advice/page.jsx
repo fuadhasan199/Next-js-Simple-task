@@ -1,73 +1,62 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-
-
+import clientPromise from '@/lib/mongodb';
 
 export const metadata = {
   title: "কৃষি পরামর্শ ও ফসল চাষ গাইড | Agrox",
-  description:
-    "বাংলাদেশের কৃষকদের জন্য আধুনিক কৃষি পরামর্শ, ফসল চাষ পদ্ধতি, খামার পরিকল্পনা ও পশুপালন গাইড। নতুন ও অভিজ্ঞ কৃষকদের জন্য সম্পূর্ণ সমাধান।",
-  keywords: [
-    "কৃষি পরামর্শ",
-    "ফসল চাষ পদ্ধতি",
-    "ধান চাষ",
-    "খামার পরিকল্পনা",
-    "কৃষি টিপস",
-    "বাংলাদেশ কৃষি",
-    "Agrox advice"
-  ],
-  openGraph: {
-    title: "কৃষি পরামর্শ | Agrox",
-    description:
-      "ফসল চাষ, খামার ব্যবস্থাপনা ও আধুনিক কৃষি টিপস এক জায়গায়",
-    type: "website",
-  },
+  description: "বাংলাদেশের কৃষকদের জন্য আধুনিক কৃষি পরামর্শ",
 };
 
-
-
-
-async function GetProduct(search, sort, page) {
+// সরাসরি DB থেকে data নিন — API call নয়
+async function GetProducts(search, sort, page) {
   try {
-    
-    const baseUrl =process.env.NEXT_PUBLIC_URL;
-    const res = await fetch(
-      `${baseUrl}/api/products?search=${search}&sort=${sort}&page=${page}`,
-      { cache: 'no-store' }
-    )
-    if (!res.ok) throw new Error("Failed to fetch");
-    return res.json();
+    const client = await clientPromise;
+    const db = client.db("Agrox");
+    const collection = db.collection("products");
+
+    const limit = 6;
+    const skip = (Number(page) - 1) * limit;
+
+    let query = {};
+    if (search) {
+      query.title = { $regex: search, $options: "i" };
+    }
+
+    let sortOption = {};
+    if (sort === "latest") sortOption = { _id: -1 };
+    else if (sort === "title") sortOption = { title: 1 };
+
+    const products = await collection.find(query)
+      .sort(sortOption)
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    const totalProducts = await collection.countDocuments(query);
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    // MongoDB _id serialize করতে হবে
+    const serialized = products.map(p => ({
+      ...p,
+      _id: p._id.toString(),
+    }));
+
+    return { products: serialized, totalPages, currentPage: Number(page) };
   } catch (err) {
-    console.error("Fetch Error:", err);
+    console.error("DB Error:", err.message);
     return { products: [], totalPages: 0, currentPage: 1 };
   }
-} 
+}
 
-
-
-
-
-
-const AllProductsPage = async ({ searchParams }) => { 
-
-
-  
-  
+const AllProductsPage = async ({ searchParams }) => {
   const params = await searchParams;
-  
-  const search = params?.search || ""
-  const sort = params?.sort || "latest"
-  const pageNo = params?.page || "1"
 
-  const data = await GetProduct(search, sort, pageNo)
+  const search = params?.search || "";
+  const sort = params?.sort || "latest";
+  const pageNo = params?.page || "1";
 
-  const products = data?.products || []
-  const totalPages = data?.totalPages || 0
-  const currentPage = Number(data?.currentPage) || 1 
-
-
-  
+  const { products, totalPages, currentPage } = await GetProducts(search, sort, pageNo);
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -77,7 +66,7 @@ const AllProductsPage = async ({ searchParams }) => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar: Search & Sort */}
+          {/* Sidebar */}
           <aside className="lg:w-1/4 w-full">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-24">
               <form action="/advice" method="GET" className="mb-8">
@@ -89,22 +78,23 @@ const AllProductsPage = async ({ searchParams }) => {
                     placeholder="পরামর্শ সার্চ করুন..."
                     className="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500 text-black"
                   />
-                  
                   <input type="hidden" name="sort" value={sort} />
                 </div>
-                <button type="submit" className="mt-2 w-full bg-green-700 text-white py-2 rounded-lg text-sm font-medium">Search</button>
+                <button type="submit" className="mt-2 w-full bg-green-700 text-white py-2 rounded-lg text-sm font-medium hover:bg-green-800 transition">
+                  Search
+                </button>
               </form>
 
               <div className="space-y-3">
                 <p className="text-sm font-bold text-gray-700 uppercase tracking-wider">সর্ট করুন</p>
-                <Link 
-                  href={`/advice?search=${search}&sort=latest&page=1`} 
+                <Link
+                  href={`/advice?search=${search}&sort=latest&page=1`}
                   className={`block p-3 rounded-xl text-sm transition-all ${sort === 'latest' ? 'bg-green-600 text-white font-bold shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   সর্বশেষ আপডেট
                 </Link>
-                <Link 
-                  href={`/advice?search=${search}&sort=title&page=1`} 
+                <Link
+                  href={`/advice?search=${search}&sort=title&page=1`}
                   className={`block p-3 rounded-xl text-sm transition-all ${sort === 'title' ? 'bg-green-600 text-white font-bold shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   নাম অনুযায়ী (A-Z)
@@ -113,30 +103,31 @@ const AllProductsPage = async ({ searchParams }) => {
             </div>
           </aside>
 
+          {/* Main Content */}
           <main className="lg:w-3/4 w-full">
             {products.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {products.map((item) => (
-                    <div key={item._id} className="bg-white rounded-2xl shadow-sm border border-base-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
+                    <div key={item._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
                       <div className="relative w-full h-52 bg-gray-200">
                         {item.image ? (
-                          <Image 
-                            src={item.image} 
-                            alt={item.title} 
-                            fill 
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
                             sizes="(max-width: 768px) 100vw, 33vw"
-                            className="object-cover" 
+                            className="object-cover"
                           />
                         ) : (
                           <div className="flex items-center justify-center h-full text-gray-400">No Image</div>
                         )}
                       </div>
-                      <div className="p-5 flex flex-col `flex-grow">
+                      <div className="p-5 flex flex-col flex-grow">
                         <h3 className="font-bold text-lg text-gray-800 mb-2 line-clamp-1">{item.title}</h3>
                         <p className="text-gray-500 text-xs line-clamp-2 mb-4 h-8">{item.shortDescription}</p>
-                        <Link 
-                          href={`/advice/${item._id}`} 
+                        <Link
+                          href={`/advice/${item._id}`}
                           className="mt-auto w-full text-center py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-bold transition-colors"
                         >
                           বিস্তারিত
@@ -145,19 +136,17 @@ const AllProductsPage = async ({ searchParams }) => {
                     </div>
                   ))}
                 </div>
-                
-                {/*pagination */}
+
+                {/* Pagination */}
                 <div className="mt-12 flex flex-col items-center gap-4">
                   <div className="flex items-center gap-2">
-                    {/* Previous Button */}
-                    <Link 
-                      href={`/advice?search=${search}&sort=${sort}&page=${currentPage > 1 ? currentPage - 1 : 1}`} 
+                    <Link
+                      href={`/advice?search=${search}&sort=${sort}&page=${currentPage > 1 ? currentPage - 1 : 1}`}
                       className={`px-4 py-2 rounded-lg text-sm border transition-all ${currentPage <= 1 ? 'pointer-events-none opacity-40 bg-gray-100' : 'bg-white hover:bg-green-50 hover:border-green-500'}`}
                     >
                       Previous
                     </Link>
 
-                    {/* Page Numbers */}
                     <div className="flex gap-1">
                       {[...Array(totalPages)].map((_, index) => {
                         const pageNum = index + 1;
@@ -173,9 +162,8 @@ const AllProductsPage = async ({ searchParams }) => {
                       })}
                     </div>
 
-                    {/* Next Button */}
-                    <Link 
-                      href={`/advice?search=${search}&sort=${sort}&page=${currentPage < totalPages ? currentPage + 1 : totalPages}`} 
+                    <Link
+                      href={`/advice?search=${search}&sort=${sort}&page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}
                       className={`px-4 py-2 rounded-lg text-sm border transition-all ${currentPage >= totalPages ? 'pointer-events-none opacity-40 bg-gray-100' : 'bg-white hover:bg-green-50 hover:border-green-500'}`}
                     >
                       Next

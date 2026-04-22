@@ -20,7 +20,7 @@ const Login = () => {
        const res=await signIn("credentials",{
           email,
           password,
-          redirect:false
+          
        }) 
         if(res.error){
            alert(res.error) 
@@ -28,7 +28,8 @@ const Login = () => {
         } 
 
        if(res.ok){
-         router.push("/")
+         router.push("/") 
+         router.refresh() 
        }
          
         
@@ -105,7 +106,7 @@ const Login = () => {
         </div>
 
         {/* Social Login */}
-        <button className="w-full flex items-center justify-center gap-3 border py-2 rounded-lg hover:bg-gray-50 transition">
+        <button onClick={()=>signIn("google")} className="w-full flex items-center justify-center gap-3 border py-2 rounded-lg hover:bg-gray-50 transition">
          <FcGoogle className="text-xl" />
           Continue with Google
         </button>

@@ -31,17 +31,18 @@ const Footer = () => {
 
           <ul className="space-y-2 text-sm opacity-80">
                 <li>
-        <Link href={'/'}>Home</Link>
+        <Link href={'/'}>হোম</Link>
+
            
         </li>
         <li>
-             <Link href={'/products'}>All Products</Link>
+             <Link href={'/products'}>পরামর্শ</Link>
         </li> 
          <li>
-             <Link href={'/categories'}>Categories</Link>
+             <Link href={'/categories'}>এক্সপার্টস</Link>
         </li> 
            <li>
-             <Link href={'/about'}>About us</Link>
+             <Link href={'/about'}>আমাদের সম্পর্কে</Link>
         </li>
           </ul>
         </div>

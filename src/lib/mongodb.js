@@ -9,9 +9,11 @@ if (!uri) {
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
-    strict: true,
+    strict: false,
     deprecationErrors: true,
   },
+  tls: true,
+  tlsAllowInvalidCertificates: true,
 };
 
 let client;
